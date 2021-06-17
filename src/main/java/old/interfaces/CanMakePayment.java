@@ -1,6 +1,6 @@
-package interfaces;
+package old.interfaces;
 
-import models.Currency;
+import old.models.Currency;
 
 public interface CanMakePayment {
 

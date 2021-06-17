@@ -1,4 +1,4 @@
-package models;
+package old.models;
 
 public class Currency extends Parent{
 

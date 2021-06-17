@@ -1,5 +1,7 @@
-import models.Parent;
-import models.User;
+package old;
+
+import old.models.Parent;
+import old.models.User;
 
 public class Printer {
 

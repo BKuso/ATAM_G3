@@ -1,6 +1,8 @@
-import interfaces.UserStatus;
-import models.Currency;
-import models.User;
+package old;
+
+import old.interfaces.UserStatus;
+import old.models.Currency;
+import old.models.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -63,7 +65,7 @@ public class ApplicationTwo {
 //            paymentUser.showCurrency();
 //        });
 
-      //  users.forEach(Printer::printData);
+      //  users.forEach(old.Printer::printData);
 
     }
 }

@@ -1,3 +1,5 @@
+package old;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -134,7 +136,7 @@ public class Application {
 //        h = Integer.parseInt("45");
 //        System.out.println(h);
 ////
-//        Application application = new Application();
+//        old.Application application = new old.Application();
 //        application.a = 9;
 //        application.test(
 //                h + "",
@@ -143,7 +145,7 @@ public class Application {
 //
 //
 //        System.out.println(application.a);
-//        Application application1 = new Application();
+//        old.Application application1 = new old.Application();
 //        System.out.println(application1.a);
 
         Map<Integer, String> numbers = new HashMap<>(){

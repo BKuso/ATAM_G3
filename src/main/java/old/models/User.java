@@ -1,8 +1,8 @@
-package models;
+package old.models;
 
-import interfaces.CanMakePayment;
-import interfaces.Friendly;
-import interfaces.UserStatus;
+import old.interfaces.CanMakePayment;
+import old.interfaces.Friendly;
+import old.interfaces.UserStatus;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

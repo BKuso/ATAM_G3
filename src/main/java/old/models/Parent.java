@@ -1,4 +1,4 @@
-package models;
+package old.models;
 
 public abstract class Parent {
 

@@ -1,4 +1,4 @@
-package interfaces;
+package old.interfaces;
 
 public enum UserStatus {
 
