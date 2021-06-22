@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CashHolder {
 
@@ -19,17 +20,41 @@ public class CashHolder {
                 ? this.cash.get(currency) : new ArrayList<>();
     }
 
+    public CashHolder putCashToCashHolder(String currencyName, List<Currency> money){
+        this.cash.put(currencyName, money);
+        return this;
+    }
+
+    public CashHolder putCashToCashHolder(List<Currency> money){
+        if(!money.isEmpty()){
+            money.stream()
+                    .map(Currency::getName)
+                    .distinct()
+                    .forEach(name -> {
+                        List<Currency> temp = money.stream()
+                                .filter(currency -> currency.getName().equals(name))
+                                .collect(Collectors.toList());
+                        this.cash.put(name, temp);
+                    });
+        }
+        return this;
+    }
+
     public CashHolder putCashToCashHolder(Currency currency, Double sum){
-        int count = (int) (sum - (sum % 1.00));
+        int intSum = sum.intValue();
+        double doubleSum = sum % 1.00;
+        List<Double> range = new ArrayList<>();
+        for(int i = 0; i< intSum; i++){
+            range.add(1.00);
+        }
+        if (doubleSum != 0.0){
+            range.add(doubleSum);
+        }
         String name = currency.getName();
         List<Currency> temp = new ArrayList<>();
-        for(int i = 0; i < count+1; i++){
+        for(Double nominal: range){
             Currency tempCurrency = currency.clone();
-            if(i<count){
-                tempCurrency.setNominal(1.00);
-            }else{
-                tempCurrency.setNominal(sum%1.00);
-            }
+            tempCurrency.setNominal(nominal);
             temp.add(tempCurrency);
         }
         this.cash.put(name, temp);
