@@ -9,11 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class CashHolder {
-
-    private final static Logger LOG = LogManager.getLogger("Робот-бухгалтер");
+public class CashHolder extends BaseEntity{
 
     private final Map<String, List<Currency>> cash = new HashMap<>();
+
+    public CashHolder(String loggerName) {
+        super(loggerName);
+        log.debug("{} создан", loggerName);
+    }
 
     public List<Currency> getCashInCurrency(String currency){
         return this.cash.get(currency) != null
@@ -58,6 +61,7 @@ public class CashHolder {
             temp.add(tempCurrency);
         }
         this.cash.put(name, temp);
+        log.info("Валюта {} в количестве {} теперь доступна в кошельке", currency.getName(), sum);
         return this;
     }
 
@@ -69,8 +73,9 @@ public class CashHolder {
                 currentSumOfCurrencyInCashHolder += currency.getNominal();
             }
             if(currentSumOfCurrencyInCashHolder < sumOfMoney){
-                LOG.info("Доступная сумма {} меньше запрашиваемой суммы {}. " +
-                        "Будут возвращены все доступные средства", currentSumOfCurrencyInCashHolder, sumOfMoney);
+                log.info("Доступная сумма {} валюты {} меньше запрашиваемой суммы {}. " +
+                        "Будут возвращены все доступные средства",
+                        currentSumOfCurrencyInCashHolder, currencyName, sumOfMoney);
                 return result;
             } else {
                 List<Currency> returnedCurrency = new ArrayList<>();
@@ -88,11 +93,13 @@ public class CashHolder {
                 for (Currency rest: result) {
                     balance+=rest.getNominal();
                 }
-                LOG.info("Запрашиваемая сумма возвращена. Баланс: {}", balance);
+                log.info("Запрашиваемая сумма {} валюты {} возвращена. Баланс: {}",
+                        sumOfMoney, currencyName, balance);
                 return returnedCurrency;
             }
 
         } else {
+            log.info("Запрашивемой валюты {} в кошельке нет. Будет возвращено 0.0 валюты", currencyName);
             return new ArrayList<>();
         }
     }

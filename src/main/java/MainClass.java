@@ -1,6 +1,4 @@
-import entities.CashHolder;
-import entities.Currency;
-import entities.User;
+import entities.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,29 +7,25 @@ import java.util.List;
 
 public class MainClass {
 
-    private final static Logger LOG = LogManager.getLogger(MainClass.class);
+    private final static Logger LOG = LogManager.getLogger("Программа");
 
     public static void main(String[] args) {
-        User seller = new User("Василий")
-                .setCashHolder(new CashHolder()
-                        .putCashToCashHolder(new Currency("Гривня"), 25.5)
-                        .putCashToCashHolder(new Currency("Доллар"), 2.00)
-                        .putCashToCashHolder(new Currency("Евро"), 2.00));
 
-        User buyer = new User("Евгений").setCashHolder(new CashHolder());
+            List<Item> itemsForSale = new ArrayList<>();
 
-        List<Currency> sumOfMoney = new ArrayList<>(){
-            {
-               addAll(seller.getMoney("Гривня", 15.00));
-               addAll(seller.getMoney("Доллар", 1.00));
-               addAll(seller.getMoney("Евро", 1.00));
-            }
-        };
+            itemsForSale.add(new Item("Гречка, 1кг", 23.00));
 
-        buyer.putMoneyToCashHolder(sumOfMoney);
+            Seller seller = new Seller("Александр", itemsForSale);
 
-        LOG.info(buyer.getMoneyStatus());
+            User buyer = new User("Мария");
 
+            buyer.putMoneyToCashHolder(new Currency("Гривня"), 50.0);
+
+            buyer.putItemInBag(
+                    seller.sellItem("Гречка, 1кг",
+                            buyer.getMoney("Гривня", 23.00)));
+
+            buyer.getBag().showBagEntry();
     }
 
 }

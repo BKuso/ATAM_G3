@@ -1,5 +1,7 @@
 package entities;
 
+import static java.lang.String.format;
+
 public class Item {
 
     private String name;
@@ -26,5 +28,11 @@ public class Item {
     public Item setPrice(double price) {
         this.price = price;
         return this;
+    }
+
+
+    @Override
+    public String toString(){
+        return format("{Название: %s, Цена: %s}", this.name, this.price);
     }
 }

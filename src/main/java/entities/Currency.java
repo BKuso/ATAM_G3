@@ -1,6 +1,6 @@
 package entities;
 
-public class Currency {
+public class Currency{
 
     private String name;
     private double nominal;
