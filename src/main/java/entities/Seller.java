@@ -11,9 +11,10 @@ public class Seller extends User{
         this.itemsForSale = items;
         this.cashHolder = new CashHolder("Кошелёк продавца " + name);
         log.debug("Продавец {} создан", name);
+        log.info("Продавец {} теперь может продавать товары: {}", name, items);
     }
 
-    private final String currencyForSelling = "Гривня";
+    private final String currencyForSelling = "UAH";
 
     private List<Item> itemsForSale;
 
@@ -38,7 +39,7 @@ public class Seller extends User{
                 this.currencyForSelling);
         for (Currency currency: currencies){
             if(currency.getName().equals(currencyForSelling)){
-                amount+=currency.getNominal();
+                amount += currency.getNominal();
             }
         }
         return sellItem(itemName, amount);

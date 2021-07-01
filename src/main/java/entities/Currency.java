@@ -4,8 +4,6 @@ public class Currency{
 
     private String name;
     private double nominal;
-    private int buyCourse;
-    private int sellCourse;
 
     public Currency(String name) {
         this.name = name;
@@ -20,23 +18,6 @@ public class Currency{
         return this;
     }
 
-    public int getBuyCourse() {
-        return buyCourse;
-    }
-
-    public Currency setBuyCourse(int buyCourse) {
-        this.buyCourse = buyCourse;
-        return this;
-    }
-
-    public int getSellCourse() {
-        return sellCourse;
-    }
-
-    public Currency setSellCourse(int sellCourse) {
-        this.sellCourse = sellCourse;
-        return this;
-    }
 
     public double getNominal() {
         return nominal;
@@ -48,17 +29,13 @@ public class Currency{
     }
 
     public Currency clone(){
-        return new Currency(this.name)
-                .setBuyCourse(this.buyCourse)
-                .setSellCourse(this.sellCourse);
+        return new Currency(this.name);
     }
 
     @Override
     public String toString(){
         return String.format("{\"Название\": \"%s\", " +
-                "\"Номинал\": \"%s\", " +
-                "\"Курс покупки\": \"%s\", " +
-                "\"Курс продажи\": \"%s\"}",
-                this.name, this.nominal, this.buyCourse, this.sellCourse);
+                "\"Номинал\": \"%s\"}",
+                this.name, this.nominal);
     }
 }

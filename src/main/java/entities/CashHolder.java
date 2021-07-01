@@ -1,12 +1,6 @@
 package entities;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class CashHolder extends BaseEntity{
@@ -16,6 +10,16 @@ public class CashHolder extends BaseEntity{
     public CashHolder(String loggerName) {
         super(loggerName);
         log.debug("{} создан", loggerName);
+    }
+
+    public List<Currency> getAllMoney(){
+        List<Currency> result = new ArrayList<>();
+        this.cash.forEach((key, value) -> result.addAll(value));
+        return result;
+    }
+
+    public List<String> showCurrencies(){
+        return new ArrayList<>(this.cash.keySet());
     }
 
     public List<Currency> getCashInCurrency(String currency){
@@ -78,17 +82,33 @@ public class CashHolder extends BaseEntity{
                         currentSumOfCurrencyInCashHolder, currencyName, sumOfMoney);
                 return result;
             } else {
+                int intSum = (int) sumOfMoney;
+                double doubleSum = sumOfMoney % 1.00;
+                List<Double> range = new ArrayList<>();
+                for(int i = 0; i< intSum; i++){
+                    range.add(1.00);
+                }
+                if (doubleSum != 0.0){
+                    range.add(doubleSum);
+                }
                 List<Currency> returnedCurrency = new ArrayList<>();
                 double returnedSum = 0;
-                for (Currency currency : result){
+                for(int i = 0; i < range.size(); i++){
                     if(returnedSum < sumOfMoney){
-                        returnedCurrency.add(currency);
-                        returnedSum+=currency.getNominal();
+                        Currency currency = result.get(i);
+                        Currency tempCurrency = currency.clone();
+                        tempCurrency.setNominal(range.get(i));
+                        returnedCurrency.add(tempCurrency);
+                        if(range.get(i) != 1){
+                            currency.setNominal(currency.getNominal() - range.get(i));
+                        } else {
+                            result.remove(currency);
+                        }
+                        returnedSum+=range.get(i);
                     } else {
                         break;
                     }
                 }
-                result.removeAll(returnedCurrency);
                 double balance = 0;
                 for (Currency rest: result) {
                     balance+=rest.getNominal();

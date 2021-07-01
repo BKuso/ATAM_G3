@@ -10,7 +10,7 @@ public class Bag extends BaseEntity{
 
     public Bag(String loggerName) {
         super(loggerName);
-        log.debug("{} создана", loggerName);
+        log.debug(loggerName + " создана");
     }
 
     public List<Item> getItems() {
